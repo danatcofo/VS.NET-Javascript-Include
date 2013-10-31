@@ -45,6 +45,29 @@ namespace JavasciptInclude.Discovery
                     if (!line.StartsWith("#include ")) continue;
                     var filename = line.Remove(0, 9).Replace("\"", "").Replace("'", "").Trim();
                     var validFilename = true;
+                    var args = filename.Split("|".ToCharArray());
+                    var dependentArgs = new Args
+                    {
+                        Region = true,
+                    };
+
+                    if (args.Length > 1)
+                    {
+                        filename = args[0];
+                        for (var i = 1; i < args.Length; ++i)
+                        {
+                            var arg = args[i];
+                            switch (args[i])
+                            {
+                                case "region":
+                                    dependentArgs.Region = true;
+                                    break;
+                                case "-region":
+                                    dependentArgs.Region = false;
+                                    break;
+                            }
+                        }
+                    }
                     foreach (var c in Path.GetInvalidPathChars())
                     {
                         var badC = filename.IndexOf(c);
@@ -57,6 +80,7 @@ namespace JavasciptInclude.Discovery
                             DependencyType = DependencyType.Error,
                             ErrorString = string.Format("{0} => Invalid character @ column {1}", l, badC),
                             ParentLineNumber = lineNumber,
+                            Args = dependentArgs,
                         };
                         break;
                     }
@@ -72,6 +96,7 @@ namespace JavasciptInclude.Discovery
                                 DependencyType = DependencyType.Error,
                                 ErrorString = string.Format("{0} => File does not exists", l),
                                 ParentLineNumber = lineNumber,
+                                Args = dependentArgs,
                             };
                         }
                         else
@@ -84,7 +109,9 @@ namespace JavasciptInclude.Discovery
                                 file = new DependentFile
                                 {
                                     DependencyType = DependencyType.Error,
-                                    ErrorString = string.Format("{0} => circular reference detected", l)
+                                    ErrorString = string.Format("{0} => circular reference detected", l),
+                                    ParentLineNumber = lineNumber,
+                                    Args = dependentArgs,
                                 };
                             }
                             else
@@ -94,6 +121,7 @@ namespace JavasciptInclude.Discovery
                                     DependencyType = DependencyType.Direct,
                                     Source = fi,
                                     ParentLineNumber = lineNumber,
+                                    Args = dependentArgs,
                                 };
                                 file.Dependencies.AddRange(GetDirectDependencies(fi.OpenText(), fi.Directory.FullName, 0, cr =>
                                 {

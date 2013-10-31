@@ -17,6 +17,7 @@ namespace JavasciptInclude
         public DependencyType DependencyType { get; set; }
         public string ErrorString { get; set;}
         public int ParentLineNumber { get; set; }
+        public Args Args { get; set; }
 
     }
 
@@ -32,5 +33,10 @@ namespace JavasciptInclude
     {
         public DependentFile File { get; set; }
         public int Level { get; set; }
+    }
+
+    public class Args
+    {
+        public bool Region { get; set; }
     }
 }

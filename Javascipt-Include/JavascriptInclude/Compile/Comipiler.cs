@@ -63,10 +63,11 @@ namespace JavasciptInclude.Compile
                             contents[dependency.ParentLineNumber] = dependency.ErrorString;
                             break;
                         default:
-                            contents[dependency.ParentLineNumber] = string.Format(
-                                "\n\n// #region {0} \n\n{1}\n\n// #endregion {0}\n\n", 
-                                compilation[dependency.Source.FullName].FileName, 
-                                compilation[dependency.Source.FullName].GetContents());
+                            contents[dependency.ParentLineNumber] = dependency.Args.Region ?
+                                string.Format("// #region {0} \n{1}\n\n// #endregion {0}\n", 
+                                    compilation[dependency.Source.FullName].FileName,
+                                    compilation[dependency.Source.FullName].GetContents()) : 
+                                compilation[dependency.Source.FullName].GetContents();
                             break;
                     }
                 }
@@ -182,7 +183,6 @@ namespace JavasciptInclude.Compile
         public string FileName { get; set; }
         public string[] Contents { get; set; }
         public int Level { get; set; }
-
         public string GetContents()
         {
             return string.Join("\n", Contents);
