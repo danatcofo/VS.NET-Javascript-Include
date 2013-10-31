@@ -20,11 +20,25 @@ namespace JavasciptInclude
             log4net.Config.XmlConfigurator.Configure();
             log.Info("========= Starting JavaScript Include Compilation =========");
 
-            var root = Path.GetFullPath(args.FirstOrDefault(i => !i.StartsWith("-")) ?? ".");
+            var path = args.FirstOrDefault(i => !i.StartsWith("-")) ?? ".";
+            path = path.Replace("/", "\\");
 
-            Compile.Comipiler.Compile(root);
+            try
+            {
+                path = Path.GetFullPath(path);
+            }
+            catch (Exception e)
+            {
+                log.Error("path", e);
+                goto Exit;
+            }
+
+            Compile.Comipiler.Compile(path);
 
             log.Info("========= EOF =========");
+
+            Exit:
+
             if (args.Contains("-p"))
                 Console.ReadKey();
             Environment.Exit(0);
