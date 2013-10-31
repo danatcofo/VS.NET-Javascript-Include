@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6EC9D224-A313-4CF0-94AD-F48A16E22630}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JavascriptInclude.Tests.Src</RootNamespace>
+    <AssemblyName>JavascriptInclude.Tests.Src</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="src\reference.Tests\reference.compile.js" />
+    <Content Include="src\reference.Tests\circularReference.0.js" />
+    <Content Include="src\reference.Tests\circularReference.1.js" />
+    <Content Include="src\compileDontCompile.Tests\bad.compile.js" />
+    <Content Include="src\compileDontCompile.Tests\compile.js" />
+    <Content Include="src\compileDontCompile.Tests\good.compile.js" />
+    <Content Include="src\outputPath.Tests\outputStaticDirectoryProvided.compile.js" />
+    <Content Include="src\outputPath.Tests\outputStaticPathProvided.compile.js" />
+    <Content Include="src\root.compile.js" />
+    <Content Include="src\outputPath.Tests\outputProvided.compile.js" />
+    <Content Include="src\header.js" />
+    <Content Include="src\outputPath.Tests\outputNotProvided.compile.js" />
+    <Content Include="src\root.testing.js" />
+    <Content Include="src\root.helloworld.js" />
+    <Content Include="src\root.something.js" />
+    <Content Include="src\root.part1.js" />
+    <Content Include="src\outputPath.Tests\outputDirectoryProvided.compile.js" />
+    <Content Include="src\root.header.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
